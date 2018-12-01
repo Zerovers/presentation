@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+		<link rel="stylesheet" type='text/css' href="css/my.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class='preview'>
+					<h1>DOM Events</h1>
+					<p>Dmitry Kravtsov</p>
+				</section>
+				<section class='list-event'>
+					<p>An event is a signal that something has happened. All DOM nodes generate such signals (but events are not limited to DOM). Consider these events</p>
+					<p>
+					<span class='mouse'>Mouse event</span></br>
+					<span class='keyboard'>Keyboard events</span></br>
+					<span class='document'>Document events</span></br>
+					<span class='form'>Form element events</span>
+					</p>
+				</section>
+				<section class='mouse'>
+					<section class='mouse-all-simple'>
+							<h2>Mouse events</h2>
+							<p>We can split mouse events into two categories: “simple” and “complex”</p>
+							<h3>Simple events</h3></br>
+							<span>Mousedown / Mouseup</span></br>
+							<p>Mouse button is clicked/released over an element</p></br>
+							<span>Mouseover / Mouseout</span></br>
+							<p>Mouse pointer comes over/out from an element</p></br>
+							<img src='./img/5.png'>
+							<span>Mousemove</span></br>
+							<p>Every mouse move over an element triggers that event</p>			
+					</section>
+						<section class='mouse-complex'>
+							<h2>Mouse events</h2>
+							<h3>Complex events</h3>
+							<span>click</span></br>
+							<p>Triggers after mousedown and then mouseup over the same element if the left mouse button was used.</p></br>
+							<span>contextmenu</span></br>
+							<p>Triggers after mousedown if the right mouse button was used.</p></br>
+							<span>dblclick</span></br>
+							<p>Triggers after a double click over an element.</br>
+							Complex events are made of simple ones, so in theory we could live without them.</p>	
+						</section>
+						<section class='mouse-property'>
+							<h2>Mouse events</h2>
+							<p>All mouse events include the information about pressed modifier keys.</p>
+							<p class='prop'>The properties are:</p>
+							<ul>
+								<li>shiftKey</li>
+								<li>altKey</li>
+								<li>ctrlKey</li>
+								<li>metaKey (Cmd for Mac)</li>
+							</ul>
+							<p>For instance, the button below only works on Alt+Shift+click:</p>
+							<img src='./img/Screenshot.png'>
+						</section>
+						<section class='mouse-coordinate'>
+							<h2>Mouse events</h2>
+							<h3>Mouse Coordinates</h3>
+							<p>All mouse events have coordinates in two flavours:</p>
+							<span>1. Window-relative: clientX and clientY.</span></br>
+							<span>2. Document-relative: pageX and pageY.</span>
+							<p>The difference between the two is that clientX/clientY looks at the coordinates relative to the screen, and pageX/pageY relative to the document.</p>
+						</section>
+				</section>
+				<section class='keyboard'>
+					<section class='keyboard-preview'>
+						<h2>Keyboard events</h2>
+						<p>Keyboard events should be used when we want to handle keyboard actions (virtual keyboard also counts).
+							 For instance, to react on arrow keys Up and Down or hotkeys (including combinations of keys).</p>
+						<ul>
+							<li>Keydown – on pressing the key (auto-repeats if the key is pressed for long)</li>
+							<li>Keyup – on releasing the key.</li>
+						</ul>
+					</section>
+					<section class='keyboard-key'>
+						<h2>Keyboard events</h2>
+						<p>Every key has the code that depends on its location on the keyboard</p>
+						<p>For instance:</p>
+						<ul>
+							<li>Letter keys have codes "Key<letter>": "KeyA", "KeyB" etc.</li>
+							<li>Digit keys have codes: "Digit<number>": "Digit0", "Digit1" etc.</li>
+							<li>Special keys are coded by their names: "Enter", "Backspace", "Tab" etc.</li>
+						</ul>
+					</section>
+				</section>
+				<section class='document'>
+					<section class='document-preview'>
+						<h2>Document Events</h2>
+						<p>The lifecycle of an HTML page has three important events:</p>
+						<ul>
+							<li><span>DOMContentLoaded</span> – the browser fully loaded HTML, and the DOM tree is built, 
+								but external resources like pictures and stylesheets may be not yet loaded.</li>
+							<li><span>Load</span> – the browser loaded all resources (images, styles etc).</li>
+							<li><span>Beforeunload / unload</span> – when the user is leaving the page.</li>
+						</ul>
+					</section>
+				</section>
+				<section class='form'>
+					<section class='form-preview'>
+						<h2>Form element events</h2>
+						<p>Let’s discuss various events that accompany data updates. These are events like:</p>
+						<ul>
+							<li>Change</li>
+							<li>Input</li>
+							<li>Cut, copy, paste</li>
+							<li>Submit</li>
+						</ul>
+					</section>
+					<section class='form-change'>
+						<h3>Form events: change / input</h3>
+						<p>The change event triggers when the element has finished changing.</br></br>
+								For text inputs that means that the event occurs when it looses focus. </br></br>
+								For instance, while we are typing in the text field below – there’s no event. But when we move the focus somewhere else, for instance, click on a button – there will be a change event: </br>
+								For other elements: select, input type=checkbox/radio it triggers right after the selection changes.
+								</p><br>
+							<p>The input event triggers every time a value is modified.</p>
+					</section>
+					<section class='form-cut-copy-paste'>
+						<h3>Form events: cut, copy, paste</h3>
+						<p>These events occur on cutting/copying/pasting a value. </br>
+								They belong to ClipboardEvent class and provide access to the data that is copied/pasted.</br>
+								We also can use event.preventDefault() to abort the action.</br></br>
+								But These events are rarely used.
+								</p>
+					</section>
+					<section class='form-submit'>
+						<h3>Form events: submit</h3>
+						<p>There are two main ways to submit a form:</p>
+						<ul>
+							<li>The first – to click to button or image.</li>
+							<li>The second – press Enter on an input field.</li>
+						</ul>
+						<p>Both actions lead to submit event on the form.
+							 The handler can check the data, and if there are errors, show them and call event.preventDefault(),
+								then the form won’t be sent to the server.</p>
+						<img src='./img/1.png'>		
+					</section>
+				</section>
+				<section class='handler'>
+					<section class='handler-preview'>
+							<h2>Event handler models</h3>
+							<p>	To react on events we can assign a handler – a function that runs in case of an event.
+									Handlers are a way to run JavaScript code in case of user actions.
+									There are several ways to assign a handler
+									</p>
+							<ul>
+								<li>Inline</li>
+								<li>Traditional</li>
+								<li>W3C</li>
+							</ul>					
+					</section>
+					<section class='handler-inline'>
+						<h3>Inline</h3>
+						<p>A handler can be set in HTML with an attribute named on<event>.</br>
+							For instance, to assign a click handler for an input, we can use onclick, like here:</p>
+							<img src='./img/2.png'>
+					</section>
+					<section class='handler-traditional'>
+						<h3>Traditional</h3>
+						<p>We can assign a handler using a DOM property on<event>.</br>
+							For instance, elem.onclick:</p>
+						<img src='./img/3.png'>
+						<p>But  these handlers are bad, modern way is addEventListener.</p>
+					</section>
+					<section class='handler-w3c'>
+						<h3>W3C</h3>
+						<p>Web-standard developers understood that long ago and suggested an alternative way of managing handlers using special methods addEventListener and removeEventListener.
+							 They are free of such a problem.</p>
+						<img src='./img/4.png'>
+						<p>The syntax to add a handler:</p>
+						<span>Event</span></br>
+						<p>Event name, e.g. "click".</p>
+						<span>Handler</span></br>
+						<p>The handler function.</p>
+						<span>Phase</span></br>
+						<p>An optional argument, the “phase” for the handler to work. To be covered later. Usually we don’t use it.</p>
+						<p>To remove the handler, use removeEventListener:</b></p>
+					</section>
+				</section>
+				<section class='end'>
+					<h1> Thanks for watching</h1>
+				</section>	
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
